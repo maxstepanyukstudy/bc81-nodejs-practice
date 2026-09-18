@@ -4,7 +4,7 @@ install
 npm i
 ```
 
-run 
+run
 
 ```bash
 npm run dev
