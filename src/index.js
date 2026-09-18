@@ -57,3 +57,7 @@ await fsPromises.rename(tempPathA, tempPathANew);
 
 await fsPromises.unlink(tempPathANew);
 await fsPromises.unlink(tempPathB);
+
+// buffer
+
+console.log(buffer.toString(ENCODING));
