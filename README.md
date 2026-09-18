@@ -7,5 +7,5 @@ npm i
 run 
 
 ```bash
-node src/index.js
+npm run dev
 ```
