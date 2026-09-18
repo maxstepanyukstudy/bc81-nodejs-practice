@@ -11,6 +11,11 @@ export default defineConfig([
     plugins: { js },
     extends: ["js/recommended"],
     languageOptions: { globals: globals.node },
+    rules: {
+      semi: "error",
+      "no-unused-vars": ["error", { args: "none" }],
+      "no-undef": "error",
+    },
   },
   {
     files: ["**/*.json"],
