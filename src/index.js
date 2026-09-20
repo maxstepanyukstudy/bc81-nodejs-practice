@@ -6,6 +6,8 @@ const PORT = 3000;
 
 const app = express();
 
+app.use(express.json());
+
 const usersList = [
   { id: 1, name: "Alice" },
   { id: 2, name: "Bob" },
