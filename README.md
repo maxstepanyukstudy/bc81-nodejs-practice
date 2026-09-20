@@ -13,3 +13,9 @@ npm run dev
 npm i --omit=dev
 npm run start
 ```
+
+## update swagger docs
+
+```bash
+npm run swagger
+```

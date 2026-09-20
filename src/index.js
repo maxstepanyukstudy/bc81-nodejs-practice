@@ -3,14 +3,21 @@ import "dotenv/config";
 import cors from "cors";
 import pino from "pino-http";
 
+import swaggerUi from 'swagger-ui-express';
+// import userRoutes from './routes/users.js';
+import swaggerFile from './swagger-output.json' with { type: 'json' };
+
 const PORT = Number(process.env.PORT) || 3000;
 const NODE_ENV = process.env.NODE_ENV;
 const isProduction = NODE_ENV === "production";
 const isDevelopment = NODE_ENV === "development";
 
+
+
 const app = express();
 
 app.use(express.json());
+app.use('/doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 app.use(cors());
 app.use(
   pino({
