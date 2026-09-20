@@ -4,6 +4,9 @@ import cors from "cors";
 import pino from "pino-http";
 
 const PORT = Number(process.env.PORT) || 3000;
+const NODE_ENV = process.env.NODE_ENV;
+const isProduction = NODE_ENV === "production";
+const isDevelopment = NODE_ENV === "development";
 
 const app = express();
 
@@ -80,7 +83,9 @@ app.use((err, req, res, next) => {
   console.error("Error:", err.message);
   res.status(500).json({
     message: "Internal Server Error",
-    error: err.message,
+    error: isProduction
+      ? "Something went wrong. Please try again later."
+      : err.message,
   });
   // note: no `next()` here
 });
