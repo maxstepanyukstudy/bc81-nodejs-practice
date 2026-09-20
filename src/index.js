@@ -33,6 +33,21 @@ app.get("/users/:userId", (req, res) => {
   res.status(200).json(user);
 });
 
+app.get("/test-error", (req, res) => {
+  throw new Error("(Example) Something went wrong");
+});
+
+// there is error handling but by defaut it returns html with stacktrace
+// but this is json api and also hiding stacktrace is better
+app.use((err, req, res, next) => {
+  console.error("Error:", err.message);
+  res.status(500).json({
+    message: "Internal Server Error",
+    error: err.message,
+  });
+  // note: no `next()` here
+});
+
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });
