@@ -3,9 +3,6 @@ import "dotenv/config";
 import cors from "cors";
 import pino from "pino-http";
 
-const message = "Hello world";
-console.log(message);
-
 const PORT = Number(process.env.PORT) || 3000;
 
 const app = express();
