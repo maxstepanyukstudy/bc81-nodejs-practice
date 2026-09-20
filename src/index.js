@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import pino from "pino-http";
 
 const message = "Hello world";
 console.log(message);
@@ -9,12 +10,29 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
+app.use(
+  pino({
+    level: "info",
+    transport: {
+      target: "pino-pretty",
+      options: {
+        colorize: true,
+        translateTime: "HH:MM:ss",
+        ignore: "pid",
+        hideObject: true,
+        messageFormat:
+          "{req.method} {req.url} {res.statusCode} - {responseTime}ms",
+      },
+    },
+  }),
+);
 
 const usersList = [
   { id: 1, name: "Alice" },
   { id: 2, name: "Bob" },
 ];
 
+// my logs
 app.use((req, res, next) => {
   const time = new Date().toLocaleString();
   console.log(time, req.hostname, req.method, req.path);
