@@ -6,7 +6,7 @@ import pino from "pino-http";
 const message = "Hello world";
 console.log(message);
 
-const PORT = process.env.PORT || 3000;
+const PORT = Number(process.env.PORT) || 3000;
 
 const app = express();
 
