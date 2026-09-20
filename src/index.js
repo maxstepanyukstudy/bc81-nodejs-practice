@@ -35,6 +35,17 @@ app.get("/users/:userId", (req, res) => {
   res.status(200).json(user);
 });
 
+app.post("/users", (req, res) => {
+  const user = req.body;
+
+  const idList = usersList.map((user) => user.id);
+  const nextId = Math.max(...idList) + 1;
+  const newUser = { ...user, id: nextId };
+  usersList.push(newUser);
+
+  res.status(200).json(newUser);
+});
+
 app.get("/test-error", (req, res) => {
   throw new Error("(Example) Something went wrong");
 });
