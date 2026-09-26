@@ -9,10 +9,9 @@ import { connectMongoDB } from "./db/connectMongoDB.js";
 
 import { Student } from "./models/student.js";
 
+import { errorHandler } from "./middleware/errorHandler.js";
+
 const PORT = Number(process.env.PORT) || 3000;
-const NODE_ENV = process.env.NODE_ENV;
-const isProduction = NODE_ENV === "production";
-const isDevelopment = NODE_ENV === "development";
 
 dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
@@ -110,16 +109,7 @@ app.use((req, res) => {
 
 // there is error handling but by defaut it returns html with stacktrace
 // but this is json api and also hiding stacktrace is better
-app.use((err, req, res, next) => {
-  console.error("Error:", err.message);
-  res.status(500).json({
-    message: "Internal Server Error",
-    error: isProduction
-      ? "Something went wrong. Please try again later."
-      : err.message,
-  });
-  // note: no `next()` here
-});
+app.use(errorHandler);
 
 await connectMongoDB();
 
