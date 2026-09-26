@@ -1,7 +1,6 @@
 import express from "express";
 import "dotenv/config";
 import cors from "cors";
-import pino from "pino-http";
 import dns from "node:dns";
 
 // .js extension is needed!
@@ -11,6 +10,7 @@ import { Student } from "./models/student.js";
 
 import { errorHandler } from "./middleware/errorHandler.js";
 import { notFoundHandler } from "./middleware/notFoundHandler.js";
+import { logger } from "./middleware/logger.js";
 
 const PORT = Number(process.env.PORT) || 3000;
 
@@ -20,22 +20,7 @@ const app = express();
 
 app.use(express.json());
 app.use(cors());
-app.use(
-  pino({
-    level: "info",
-    transport: {
-      target: "pino-pretty",
-      options: {
-        colorize: true,
-        translateTime: "yyyy-mm-dd HH:MM:ss",
-        ignore: "pid",
-        hideObject: true,
-        messageFormat:
-          "{req.method} {req.url} {res.statusCode} - {responseTime}ms",
-      },
-    },
-  }),
-);
+app.use(logger);
 
 const usersList = [
   { id: 1, name: "Alice" },
