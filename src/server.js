@@ -10,6 +10,7 @@ import { connectMongoDB } from "./db/connectMongoDB.js";
 import { Student } from "./models/student.js";
 
 import { errorHandler } from "./middleware/errorHandler.js";
+import { notFoundHandler } from "./middleware/notFoundHandler.js";
 
 const PORT = Number(process.env.PORT) || 3000;
 
@@ -102,10 +103,7 @@ app.get("/test-error", (req, res) => {
   throw new Error("(Example) Something went wrong");
 });
 
-app.use((req, res) => {
-  console.log("Route not found");
-  res.status(404).json({ message: "Route not found" });
-});
+app.use(notFoundHandler);
 
 // there is error handling but by defaut it returns html with stacktrace
 // but this is json api and also hiding stacktrace is better
