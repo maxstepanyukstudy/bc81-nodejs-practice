@@ -2,11 +2,14 @@ import express from "express";
 import "dotenv/config";
 import cors from "cors";
 import pino from "pino-http";
+import dns from "node:dns";
 
 const PORT = Number(process.env.PORT) || 3000;
 const NODE_ENV = process.env.NODE_ENV;
 const isProduction = NODE_ENV === "production";
 const isDevelopment = NODE_ENV === "development";
+
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 
 const app = express();
 
