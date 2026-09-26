@@ -4,6 +4,9 @@ import cors from "cors";
 import pino from "pino-http";
 import dns from "node:dns";
 
+// .js extension is needed!
+import { connectMongoDB } from "./db/connectMongoDB.js";
+
 const PORT = Number(process.env.PORT) || 3000;
 const NODE_ENV = process.env.NODE_ENV;
 const isProduction = NODE_ENV === "production";
@@ -92,6 +95,8 @@ app.use((err, req, res, next) => {
   });
   // note: no `next()` here
 });
+
+await connectMongoDB();
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
