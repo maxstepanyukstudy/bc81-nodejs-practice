@@ -35,7 +35,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/users",usersRouter);
+app.use("/users", usersRouter);
 app.use("/students", studentsRouter);
 
 app.get("/test-error", (req, res) => {

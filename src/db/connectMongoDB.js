@@ -9,4 +9,4 @@ export async function connectMongoDB() {
     console.error("❌ Failed to connect to MongoDB:", error.message);
     process.exit(1); // аварійне завершення програми
   }
-};
+}
