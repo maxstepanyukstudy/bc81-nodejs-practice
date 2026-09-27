@@ -7,11 +7,16 @@ export async function getAllUsers(req, res) {
 export async function getUserById(req, res) {
   const id = Number(req.params.userId);
   const user = usersList.find((user) => user.id === id);
+  if (!user) {
+    return res.status(404).json({
+      message: "User not found",
+    });
+  }
   res.status(200).json(user);
 }
 
 export async function addUser(req, res) {
-const user = req.body;
+  const user = req.body;
 
   const idList = usersList.map((user) => user.id);
   const nextId = Math.max(...idList) + 1;
