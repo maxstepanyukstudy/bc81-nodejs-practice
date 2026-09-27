@@ -39,3 +39,20 @@ export async function deleteStudentById(req, res) {
   // res.status(204).json(); // http 204 wont send any body anyway
   res.status(201).json(student);
 }
+
+export async function updateStudentById(req, res) {
+  const { id } = req.params;
+  // // find by fields
+  // const student = await Student.findOneAndUpdate(
+  //   { _id: id },
+  //   req.body,
+  //   { returnDocument: "after" }, // aka after update
+  // );
+  const student = await Student.findByIdAndUpdate(
+    id,
+    req.body,
+    { returnDocument: "after" }, // aka after update
+  );
+  if (!student) throw createHttpError(404, "Student not found");
+  res.status(200).json(student);
+}
