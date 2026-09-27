@@ -3,17 +3,17 @@ import { usersList } from "../db/usersList.js";
 
 const usersRouter = Router();
 
-usersRouter.get("/users", (req, res) => {
+usersRouter.get("/", (req, res) => {
   res.status(200).json(usersList);
 });
 
-usersRouter.get("/users/:userId", (req, res) => {
+usersRouter.get("/:userId", (req, res) => {
   const id = Number(req.params.userId);
   const user = usersList.find((user) => user.id === id);
   res.status(200).json(user);
 });
 
-usersRouter.post("/users", (req, res) => {
+usersRouter.post("/", (req, res) => {
   const user = req.body;
 
   const idList = usersList.map((user) => user.id);
