@@ -25,3 +25,8 @@ export async function getStudentById(req, res) {
 
   res.status(200).json(student);
 }
+
+export async function addStudent(req, res) {
+  const student = await Student.create(req.body);
+  res.status(201).json(student);
+}
