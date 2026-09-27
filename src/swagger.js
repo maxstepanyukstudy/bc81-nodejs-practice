@@ -10,7 +10,7 @@ const doc = {
 };
 
 const outputFile = './swagger-output.json';
-const routes = ['./app.js']; // entry file(s) that register your routes
+const routes = ['./index.js']; // entry file(s) that register your routes
 
 // Note: swaggerAutogen is called twice: once for options, once to generate
 swaggerAutogen({ openapi: '3.0.0' })(outputFile, routes, doc);
