@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/users",usersRouter);
-app.use(studentsRouter);
+app.use("/students", studentsRouter);
 
 app.get("/test-error", (req, res) => {
   throw new Error("(Example) Something went wrong");

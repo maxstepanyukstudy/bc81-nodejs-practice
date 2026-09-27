@@ -3,12 +3,12 @@ import { Student } from "../models/student.js";
 
 const studentsRouter = Router();
 
-studentsRouter.get("/students", async (req, res) => {
+studentsRouter.get("/", async (req, res) => {
   const students = await Student.find();
   res.status(200).json(students);
 });
 
-studentsRouter.get("/students/:id", async (req, res) => {
+studentsRouter.get("/:id", async (req, res) => {
   const { id } = req.params;
   const student = await Student.findById(id);
   if (!student) {
