@@ -1,14 +1,14 @@
 import { Router } from "express";
 import { Student } from "../models/student";
 
-const router = Router();
+const studentsRouter = Router();
 
-router.get("/students", async (req, res) => {
+studentsRouter.get("/students", async (req, res) => {
   const students = await Student.find();
   res.status(200).json(students);
 });
 
-router.get("/students/:id", async (req, res) => {
+studentsRouter.get("/students/:id", async (req, res) => {
   const { id } = req.params;
   const student = await Student.findById(id);
   if (!student) {
@@ -26,4 +26,4 @@ router.get("/students/:id", async (req, res) => {
   res.status(200).json(student);
 });
 
-export default router;
+export default studentsRouter;
