@@ -30,3 +30,12 @@ export async function addStudent(req, res) {
   const student = await Student.create(req.body);
   res.status(201).json(student);
 }
+
+export async function deleteStudentById(req, res) {
+  const { id } = req.params;
+  // const student = await Student.findOneAndDelete({ _id: id }); // find document with these fields ie if any fields match -> delete. imo not the best option
+  const student = await Student.findByIdAndDelete(id);
+  if (!student) throw createHttpError(404, "Student not found");
+  // res.status(204).json(); // http 204 wont send any body anyway
+  res.status(201).json(student);
+}
