@@ -1,27 +1,14 @@
 import { Router } from "express";
-import { usersList } from "../db/usersList.js";
+import {
+  addUser,
+  getAllUsers,
+  getUserById,
+} from "../controllers/userControllers.js";
 
 const usersRouter = Router();
 
-usersRouter.get("/", (req, res) => {
-  res.status(200).json(usersList);
-});
-
-usersRouter.get("/:userId", (req, res) => {
-  const id = Number(req.params.userId);
-  const user = usersList.find((user) => user.id === id);
-  res.status(200).json(user);
-});
-
-usersRouter.post("/", (req, res) => {
-  const user = req.body;
-
-  const idList = usersList.map((user) => user.id);
-  const nextId = Math.max(...idList) + 1;
-  const newUser = { ...user, id: nextId };
-  usersList.push(newUser);
-
-  res.status(200).json(newUser);
-});
+usersRouter.get("/", getAllUsers);
+usersRouter.get("/:userId", getUserById);
+usersRouter.post("/", addUser);
 
 export default usersRouter;
