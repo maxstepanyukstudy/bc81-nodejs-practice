@@ -10,6 +10,7 @@ import { errorHandler } from "./middleware/errorHandler.js";
 import { notFoundHandler } from "./middleware/notFoundHandler.js";
 import { logger } from "./middleware/logger.js";
 import studentsRouter from "./routes/studentsRouter.js";
+import usersRouter from "./routes/usersRoute.js";
 
 const PORT = Number(process.env.PORT) || 3000;
 
@@ -20,11 +21,6 @@ const app = express();
 app.use(logger);
 app.use(express.json());
 app.use(cors());
-
-const usersList = [
-  { id: 1, name: "Alice" },
-  { id: 2, name: "Bob" },
-];
 
 // my logs
 app.use((req, res, next) => {
@@ -39,27 +35,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/users", (req, res) => {
-  res.status(200).json(usersList);
-});
-
-app.get("/users/:userId", (req, res) => {
-  const id = Number(req.params.userId);
-  const user = usersList.find((user) => user.id === id);
-  res.status(200).json(user);
-});
-
-app.post("/users", (req, res) => {
-  const user = req.body;
-
-  const idList = usersList.map((user) => user.id);
-  const nextId = Math.max(...idList) + 1;
-  const newUser = { ...user, id: nextId };
-  usersList.push(newUser);
-
-  res.status(200).json(newUser);
-});
-
+app.use(usersRouter);
 app.use(studentsRouter);
 
 app.get("/test-error", (req, res) => {
