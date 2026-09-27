@@ -1,3 +1,4 @@
+import createHttpError from "http-errors";
 import { usersList } from "../db/usersList.js";
 
 export async function getAllUsers(req, res) {
@@ -7,12 +8,14 @@ export async function getAllUsers(req, res) {
 export async function getUserById(req, res) {
   const id = Number(req.params.userId);
   const user = usersList.find((user) => user.id === id);
-  // if (!user) {
-  //   return res.status(404).json({
-  //     message: "User not found",
-  //   });
-  // }
-  if (!user) throw new Error("User not found");
+  // // if (!user) {
+  // //   return res.status(404).json({
+  // //     message: "User not found",
+  // //   });
+  // // }
+  // if (!user) throw new Error("User not found");
+  if (!user) throw new createHttpError(404, "User not found");
+
   res.status(200).json(user);
 }
 
