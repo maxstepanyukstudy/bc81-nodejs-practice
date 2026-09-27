@@ -37,7 +37,7 @@ export async function deleteStudentById(req, res) {
   const student = await Student.findByIdAndDelete(id);
   if (!student) throw createHttpError(404, "Student not found");
   // res.status(204).json(); // http 204 wont send any body anyway
-  res.status(201).json(student);
+  res.status(200).json(student);
 }
 
 export async function updateStudentById(req, res) {
