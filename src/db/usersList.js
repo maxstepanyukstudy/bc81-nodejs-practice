@@ -1,0 +1,4 @@
+export const usersList = [
+  { id: 1, name: "Alice" },
+  { id: 2, name: "Bob" },
+];

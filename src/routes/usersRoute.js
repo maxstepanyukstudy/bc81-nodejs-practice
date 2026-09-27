@@ -1,11 +1,7 @@
 import { Router } from "express";
+import { usersList } from "../db/usersList.js";
 
 const usersRouter = Router();
-
-const usersList = [
-  { id: 1, name: "Alice" },
-  { id: 2, name: "Bob" },
-];
 
 usersRouter.get("/users", (req, res) => {
   res.status(200).json(usersList);
