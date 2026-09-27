@@ -6,11 +6,10 @@ import dns from "node:dns";
 // .js extension is needed!
 import { connectMongoDB } from "./db/connectMongoDB.js";
 
-import { Student } from "./models/student.js";
-
 import { errorHandler } from "./middleware/errorHandler.js";
 import { notFoundHandler } from "./middleware/notFoundHandler.js";
 import { logger } from "./middleware/logger.js";
+import studentsRouter from "./routes/studentsRouter.js";
 
 const PORT = Number(process.env.PORT) || 3000;
 
@@ -61,28 +60,7 @@ app.post("/users", (req, res) => {
   res.status(200).json(newUser);
 });
 
-app.get("/students", async (req, res) => {
-  const students = await Student.find();
-  res.status(200).json(students);
-});
-
-app.get("/students/:id", async (req, res) => {
-  const { id } = req.params;
-  const student = await Student.findById(id);
-  if (!student) {
-    // // common version
-    // return res.status(404).json({
-    //   message: "Student not found",
-    // });
-    // step-by-step version
-    res.status(404).json({
-      message: "Student not found",
-    });
-    return; // stop function
-  }
-
-  res.status(200).json(student);
-});
+app.use(studentsRouter);
 
 app.get("/test-error", (req, res) => {
   throw new Error("(Example) Something went wrong");
