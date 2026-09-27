@@ -19,7 +19,14 @@ dns.setServers(["8.8.8.8", "1.1.1.1"]);
 const app = express();
 
 app.use(logger);
-app.use(express.json());
+app.use(
+  express.json({
+    type: [
+      "application/json",
+      // "application/vnd.api+json"
+    ],
+  }),
+);
 app.use(cors());
 
 // my logs
