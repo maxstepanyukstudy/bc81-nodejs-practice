@@ -25,6 +25,7 @@ app.use(
       "application/json",
       // "application/vnd.api+json"
     ],
+    limit: "100kb",
   }),
 );
 app.use(cors());
