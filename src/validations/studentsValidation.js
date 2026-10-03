@@ -44,3 +44,18 @@ export const createStudentSchema = {
     }),
   }),
 };
+
+export const updateStudentSchema = {
+  [Segments.PARAMS]: Joi.object({
+    id: Joi.string().custom(objectIdValidator).required(),
+  }),
+  [Segments.BODY]: Joi.object({
+    name: Joi.string().min(3).max(30).messages(studentAgeJoiMessages),
+    age: Joi.number().integer().min(12).max(65).messages(),
+    gender: Joi.string()
+      .valid("male", "female", "other")
+      .messages(studentGenderJoiMessages),
+    avgMark: Joi.number().min(2).max(12).messages(studentAvgMarkJoiMessages),
+    onDuty: Joi.boolean().messages(studentOnDutyJoiMessages),
+  }),
+};
