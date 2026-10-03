@@ -9,13 +9,14 @@ import {
 import { celebrate } from "celebrate";
 import {
   createStudentSchema,
+  getStudentsSchema,
   studentIdParamSchema,
   updateStudentSchema,
 } from "../validations/studentsValidation.js";
 
 const studentsRouter = Router();
 
-studentsRouter.get("/", getAllStudents);
+studentsRouter.get("/", celebrate(getStudentsSchema), getAllStudents);
 studentsRouter.get("/:id", celebrate(studentIdParamSchema), getStudentById);
 studentsRouter.post("/", celebrate(createStudentSchema), addStudent);
 studentsRouter.patch(

@@ -33,6 +33,13 @@ export const studentIdParamSchema = {
   }),
 };
 
+export const getStudentsSchema = {
+  [Segments.QUERY]: Joi.object({
+    page: Joi.number().integer().min(1).default(1),
+    perPage: Joi.number().integer().min(5).max(20).default(10),
+  }),
+};
+
 export const createStudentSchema = {
   [Segments.BODY]: Joi.object({
     name: Joi.string()
