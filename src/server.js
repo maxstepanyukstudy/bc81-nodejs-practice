@@ -2,6 +2,7 @@ import express from "express";
 import "dotenv/config";
 import cors from "cors";
 import dns from "node:dns";
+import { errors } from "celebrate";
 
 // .js extension is needed!
 import { connectMongoDB } from "./db/connectMongoDB.js";
@@ -51,6 +52,9 @@ app.get("/test-error", (req, res) => {
 });
 
 app.use(notFoundHandler);
+
+// celebrate validation error handler
+app.use(errors());
 
 // there is error handling but by defaut it returns html with stacktrace
 // but this is json api and also hiding stacktrace is better
