@@ -1,5 +1,10 @@
 import { Joi, Segments } from "celebrate";
 import { objectIdValidator } from "./objectIdValidator.js";
+import {
+  PER_PAGE_DEFAULT,
+  PER_PAGE_MAX,
+  PER_PAGE_MIN,
+} from "../constants/paginationConstants.js";
 
 const studentNameJoiMessages = {
   "string.base": "Name must be a string",
@@ -36,7 +41,11 @@ export const studentIdParamSchema = {
 export const getStudentsSchema = {
   [Segments.QUERY]: Joi.object({
     page: Joi.number().integer().min(1).default(1),
-    perPage: Joi.number().integer().min(5).max(20).default(10),
+    perPage: Joi.number()
+      .integer()
+      .min(PER_PAGE_MIN)
+      .max(PER_PAGE_MAX)
+      .default(PER_PAGE_DEFAULT),
   }),
 };
 
