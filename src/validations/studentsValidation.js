@@ -1,4 +1,11 @@
 import { Joi, Segments } from "celebrate";
+import { objectIdValidator } from "./objectIdValidator.js";
+
+export const studentIdParamSchema = {
+  [Segments.PARAMS]: Joi.object({
+    id: Joi.string().custom(objectIdValidator).required(),
+  }),
+};
 
 export const createStudentSchema = {
   [Segments.BODY]: Joi.object({
