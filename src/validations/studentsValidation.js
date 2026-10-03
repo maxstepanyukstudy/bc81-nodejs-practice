@@ -35,10 +35,26 @@ const studentOnDutyJoiMessages = {
 
 export const createStudentSchema = {
   [Segments.BODY]: Joi.object({
-    name: Joi.string().min(3).max(30).required().messages(studentNameJoiMessages),
-    age: Joi.number().integer().min(12).max(65).required().messages(studentAgeJoiMessages),
-    gender: Joi.string().valid("male", "female", "other").required().messages(studentGenderJoiMessages),
-    avgMark: Joi.number().min(2).max(12).required().messages(studentAvgMarkJoiMessages),
+    name: Joi.string()
+      .min(3)
+      .max(30)
+      .required()
+      .messages(studentNameJoiMessages),
+    age: Joi.number()
+      .integer()
+      .min(12)
+      .max(65)
+      .required()
+      .messages(studentAgeJoiMessages),
+    gender: Joi.string()
+      .valid("male", "female", "other")
+      .required()
+      .messages(studentGenderJoiMessages),
+    avgMark: Joi.number()
+      .min(2)
+      .max(12)
+      .required()
+      .messages(studentAvgMarkJoiMessages),
     onDuty: Joi.boolean().messages({
       "boolean.base": "onDuty must be a boolean value",
     }),
