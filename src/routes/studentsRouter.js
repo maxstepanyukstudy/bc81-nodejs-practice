@@ -1,10 +1,10 @@
 import { Router } from "express";
 import {
-  getAllStudents,
   getStudentById,
   addStudent,
   deleteStudentById,
   updateStudentById,
+  getStudents,
 } from "../controllers/studentsController.js";
 import { celebrate } from "celebrate";
 import {
@@ -16,7 +16,7 @@ import {
 
 const studentsRouter = Router();
 
-studentsRouter.get("/", celebrate(getStudentsSchema), getAllStudents);
+studentsRouter.get("/", celebrate(getStudentsSchema), getStudents);
 studentsRouter.get("/:id", celebrate(studentIdParamSchema), getStudentById);
 studentsRouter.post("/", celebrate(createStudentSchema), addStudent);
 studentsRouter.patch(

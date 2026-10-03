@@ -1,9 +1,26 @@
 import createHttpError from "http-errors";
 import { Student } from "../models/student.js";
+import { PER_PAGE_DEFAULT } from "../constants/paginationConstants.js";
 
-export async function getAllStudents(req, res) {
-  const students = await Student.find();
-  res.status(200).json(students);
+export async function getStudents(req, res) {
+  const { page = 1, perPage = PER_PAGE_DEFAULT } = req.query;
+  const skip = (page - 1) * perPage;
+
+  const studentsQuery = Student.find(); // no await yet
+  const [totalItems, students] = await Promise.all([
+    studentsQuery.clone().countDocuments(), // .clone() because of mongoose
+    studentsQuery.skip(skip).limit(perPage),
+  ]);
+
+  const totalPages = Math.ceil(totalItems / perPage);
+
+  res.status(200).json({
+    page,
+    perPage,
+    totalItems,
+    totalPages,
+    students,
+  });
 }
 
 export async function getStudentById(req, res) {
