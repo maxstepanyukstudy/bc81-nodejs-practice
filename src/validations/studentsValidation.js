@@ -1,12 +1,6 @@
 import { Joi, Segments } from "celebrate";
 import { objectIdValidator } from "./objectIdValidator.js";
 
-export const studentIdParamSchema = {
-  [Segments.PARAMS]: Joi.object({
-    id: Joi.string().custom(objectIdValidator).required(),
-  }),
-};
-
 const studentNameJoiMessages = {
   "string.base": "Name must be a string",
   "string.min": "Name should have at least {#limit} characters",
@@ -33,6 +27,12 @@ const studentOnDutyJoiMessages = {
   "boolean.base": "onDuty must be a boolean value",
 };
 
+export const studentIdParamSchema = {
+  [Segments.PARAMS]: Joi.object({
+    id: Joi.string().custom(objectIdValidator).required(),
+  }),
+};
+
 export const createStudentSchema = {
   [Segments.BODY]: Joi.object({
     name: Joi.string()
@@ -55,9 +55,7 @@ export const createStudentSchema = {
       .max(12)
       .required()
       .messages(studentAvgMarkJoiMessages),
-    onDuty: Joi.boolean().messages({
-      "boolean.base": "onDuty must be a boolean value",
-    }),
+    onDuty: Joi.boolean().messages(studentOnDutyJoiMessages),
   }),
 };
 
