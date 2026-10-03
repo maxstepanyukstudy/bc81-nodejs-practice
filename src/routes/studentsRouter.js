@@ -10,6 +10,7 @@ import { celebrate } from "celebrate";
 import {
   createStudentSchema,
   studentIdParamSchema,
+  updateStudentSchema,
 } from "../validations/studentsValidation.js";
 
 const studentsRouter = Router();
@@ -19,7 +20,8 @@ studentsRouter.get("/:id", celebrate(studentIdParamSchema), getStudentById);
 studentsRouter.post("/", celebrate(createStudentSchema), addStudent);
 studentsRouter.patch(
   "/:id",
-  celebrate(studentIdParamSchema),
+  // celebrate(studentIdParamSchema),
+  celebrate(updateStudentSchema),
   updateStudentById,
 );
 studentsRouter.delete(
