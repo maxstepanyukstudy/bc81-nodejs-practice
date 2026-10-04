@@ -6,6 +6,12 @@ import {
   PER_PAGE_MIN,
 } from "../constants/paginationConstants.js";
 import { genderList } from "../constants/genderConstants.js";
+import {
+  SORT_FIELD_DEFAULT,
+  SORT_ORDER_DEFAULT,
+  SORT_ORDERS,
+} from "../constants/sortConstants.js";
+import { studentSortFields } from "../models/student.js";
 
 const studentNameJoiMessages = {
   "string.base": "Name must be a string",
@@ -50,6 +56,12 @@ export const getStudentsSchema = {
     gender: Joi.string().valid(...genderList),
     minAvgMark: Joi.number().positive(),
     search: Joi.string().trim().allow(""),
+    sortOrder: Joi.string()
+      .valid(...SORT_ORDERS)
+      .default(SORT_ORDER_DEFAULT),
+    sortBy: Joi.string()
+      .valid(studentSortFields)
+      .default(SORT_FIELD_DEFAULT),
   }),
 };
 

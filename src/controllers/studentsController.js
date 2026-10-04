@@ -1,6 +1,10 @@
 import createHttpError from "http-errors";
 import { Student } from "../models/student.js";
 import { PER_PAGE_DEFAULT } from "../constants/paginationConstants.js";
+import {
+  SORT_FIELD_DEFAULT,
+  SORT_ORDER_DEFAULT,
+} from "../constants/sortConstants.js";
 
 export async function getStudents(req, res) {
   const {
@@ -9,6 +13,8 @@ export async function getStudents(req, res) {
     gender,
     minAvgMark,
     search,
+    sortBy = SORT_FIELD_DEFAULT,
+    sortOrder = SORT_ORDER_DEFAULT,
   } = req.query;
 
   const skip = (page - 1) * perPage;
@@ -27,7 +33,10 @@ export async function getStudents(req, res) {
   }
   const [totalItems, students] = await Promise.all([
     studentsQuery.clone().countDocuments(), // .clone() because of mongoose
-    studentsQuery.skip(skip).limit(perPage),
+    studentsQuery
+      .skip(skip)
+      .limit(perPage)
+      .sort({ [sortBy]: sortOrder }),
   ]);
 
   const totalPages = Math.ceil(totalItems / perPage);
