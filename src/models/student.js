@@ -31,6 +31,8 @@ const studentSchema = new Schema(
   },
 );
 
+export const studentSortFields = ["_id", "name", "age", "avgMark"];
+
 studentSchema.index({ gender: 1, avgMark: 1 }); // compound index
 
 export const Student = model("Student", studentSchema);
