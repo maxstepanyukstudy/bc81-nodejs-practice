@@ -103,5 +103,5 @@ export const updateStudentSchema = {
       .messages(studentGenderJoiMessages),
     avgMark: Joi.number().min(2).max(12).messages(studentAvgMarkJoiMessages),
     onDuty: Joi.boolean().messages(studentOnDutyJoiMessages),
-  }),
+  }).min(1),
 };
