@@ -60,7 +60,7 @@ export const getStudentsSchema = {
       .valid(...SORT_ORDERS)
       .default(SORT_ORDER_DEFAULT),
     sortBy: Joi.string()
-      .valid(studentSortFields)
+      .valid(...studentSortFields)
       .default(SORT_FIELD_DEFAULT),
   }),
 };
