@@ -5,6 +5,7 @@ import {
   PER_PAGE_MAX,
   PER_PAGE_MIN,
 } from "../constants/paginationConstants.js";
+import { genderList } from "../constants/genderConstants.js";
 
 const studentNameJoiMessages = {
   "string.base": "Name must be a string",
@@ -63,7 +64,7 @@ export const createStudentSchema = {
       .required()
       .messages(studentAgeJoiMessages),
     gender: Joi.string()
-      .valid("male", "female", "other")
+      .valid(...genderList)
       .required()
       .messages(studentGenderJoiMessages),
     avgMark: Joi.number()
@@ -83,7 +84,7 @@ export const updateStudentSchema = {
     name: Joi.string().min(3).max(30).messages(studentAgeJoiMessages),
     age: Joi.number().integer().min(12).max(65).messages(),
     gender: Joi.string()
-      .valid("male", "female", "other")
+      .valid(...genderList)
       .messages(studentGenderJoiMessages),
     avgMark: Joi.number().min(2).max(12).messages(studentAvgMarkJoiMessages),
     onDuty: Joi.boolean().messages(studentOnDutyJoiMessages),
