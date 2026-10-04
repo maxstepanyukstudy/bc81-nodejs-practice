@@ -8,6 +8,7 @@ export async function getStudents(req, res) {
     perPage = PER_PAGE_DEFAULT,
     gender,
     minAvgMark,
+    search,
   } = req.query;
 
   const skip = (page - 1) * perPage;
@@ -18,6 +19,11 @@ export async function getStudents(req, res) {
   }
   if (minAvgMark) {
     studentsQuery.where("avgMark").gte(minAvgMark);
+  }
+  if (search) {
+    studentsQuery.where({
+      name: { $regex: search, $options: "i" },
+    });
   }
   const [totalItems, students] = await Promise.all([
     studentsQuery.clone().countDocuments(), // .clone() because of mongoose

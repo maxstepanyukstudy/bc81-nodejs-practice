@@ -49,6 +49,7 @@ export const getStudentsSchema = {
       .default(PER_PAGE_DEFAULT),
     gender: Joi.string().valid(...genderList),
     minAvgMark: Joi.number().positive(),
+    search: Joi.string().trim().allow(""),
   }),
 };
 
