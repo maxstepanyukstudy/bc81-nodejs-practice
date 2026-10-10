@@ -3,10 +3,10 @@ import "dotenv/config";
 import cors from "cors";
 import dns from "node:dns";
 import { errors } from "celebrate";
+import cookieParser from "cookie-parser";
 
 // .js extension is needed!
 import { connectMongoDB } from "./db/connectMongoDB.js";
-
 import { errorHandler } from "./middleware/errorHandler.js";
 import { notFoundHandler } from "./middleware/notFoundHandler.js";
 import { logger } from "./middleware/logger.js";
@@ -31,6 +31,7 @@ app.use(
   }),
 );
 app.use(cors());
+app.use(cookieParser());
 
 // my logs
 app.use((req, res, next) => {
