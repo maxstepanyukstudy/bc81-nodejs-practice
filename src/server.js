@@ -11,7 +11,7 @@ import { errorHandler } from "./middleware/errorHandler.js";
 import { notFoundHandler } from "./middleware/notFoundHandler.js";
 import { logger } from "./middleware/logger.js";
 import studentsRouter from "./routes/studentsRouter.js";
-import usersRouter from "./routes/usersRoute.js";
+import contactsRouter from "./routes/contactsRoute.js";
 
 const PORT = Number(process.env.PORT) || 3000;
 
@@ -44,7 +44,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.use("/users", usersRouter);
+app.use("/contacts", contactsRouter);
 app.use("/students", studentsRouter);
 
 app.get("/test-error", (req, res) => {
