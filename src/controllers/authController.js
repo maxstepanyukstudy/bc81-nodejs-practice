@@ -17,6 +17,8 @@ export async function registerUser(req, res) {
     password: hashedPassword,
   });
 
+  const newSession = await createSession(newUser._id);
+
   res.status(201).json(newUser);
 }
 
