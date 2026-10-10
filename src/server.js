@@ -12,6 +12,7 @@ import { notFoundHandler } from "./middleware/notFoundHandler.js";
 import { logger } from "./middleware/logger.js";
 import studentsRouter from "./routes/studentsRouter.js";
 import contactsRouter from "./routes/contactsRoute.js";
+import authRouter from "./routes/authRouter.js";
 
 const PORT = Number(process.env.PORT) || 3000;
 
@@ -44,6 +45,7 @@ app.get("/", (req, res) => {
   });
 });
 
+app.use("/auth", authRouter);
 app.use("/contacts", contactsRouter);
 app.use("/students", studentsRouter);
 
