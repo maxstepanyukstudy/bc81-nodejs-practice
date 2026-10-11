@@ -52,7 +52,10 @@ export async function getStudents(req, res) {
 
 export async function getStudentById(req, res) {
   const { id } = req.params;
-  const student = await Student.findById(id);
+  const student = await Student.findOne({
+    _id: id,
+    userId: req.user._id,
+  });
   // // if (!student) {
   // //   // // common version
   // //   // return res.status(404).json({
