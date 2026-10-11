@@ -71,7 +71,10 @@ export async function getStudentById(req, res) {
 }
 
 export async function addStudent(req, res) {
-  const student = await Student.create(req.body);
+  const student = await Student.create({
+    ...req.body,
+    userId: req.user._id,
+  });
   res.status(201).json(student);
 }
 
