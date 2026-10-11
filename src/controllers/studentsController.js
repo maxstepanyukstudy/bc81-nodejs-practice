@@ -19,7 +19,7 @@ export async function getStudents(req, res) {
 
   const skip = (page - 1) * perPage;
 
-  const studentsQuery = Student.find(); // no await yet
+  const studentsQuery = Student.find({ userId: req.user._id }); // no await yet
   if (gender) {
     studentsQuery.where("gender").equals(gender);
   }
