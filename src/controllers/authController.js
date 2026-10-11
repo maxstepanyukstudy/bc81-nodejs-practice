@@ -41,3 +41,17 @@ export async function loginUser(req, res) {
 
   res.status(200).json(user);
 }
+
+export async function logoutUser(req, res) {
+  const { sessionId } = req.cookies;
+
+  if (sessionId) {
+    await Session.deleteOne({ _id: sessionId });
+  }
+
+  res.clearCookie("sessionId");
+  res.clearCookie("accessToken");
+  res.clearCookie("refreshToken");
+
+  res.status(204).send();
+}
