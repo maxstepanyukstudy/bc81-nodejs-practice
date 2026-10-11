@@ -94,17 +94,16 @@ export async function deleteStudentById(req, res) {
 
 export async function updateStudentById(req, res) {
   const { id } = req.params;
-  // // find by fields
-  // const student = await Student.findOneAndUpdate(
-  //   { _id: id },
-  //   req.body,
-  //   { returnDocument: "after" }, // aka after update
-  // );
-  const student = await Student.findByIdAndUpdate(
-    id,
+
+  const student = await Student.findOneAndUpdate(
+    {
+      _id: id,
+      userId: req.user._id,
+    },
     req.body,
-    { returnDocument: "after" }, // aka after update
+    { returnDocument: "after" },
   );
+
   if (!student) throw createHttpError(404, "Student not found");
   res.status(200).json(student);
 }
