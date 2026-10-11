@@ -4,8 +4,11 @@ import {
   getAllContacts,
   getContactById,
 } from "../controllers/contactControllers.js";
+import { authenticate } from "../middleware/authenticate.js";
 
 const contactsRouter = Router();
+
+contactsRouter.use(authenticate);
 
 contactsRouter.get("/", getAllContacts);
 contactsRouter.get("/:contactId", getContactById);
