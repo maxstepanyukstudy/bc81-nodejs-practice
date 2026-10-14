@@ -87,3 +87,14 @@ export async function refreshUserSession(req, res) {
     message: "Session refreshed",
   });
 }
+
+export async function requestResetEmail(req, res) {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+  console.log("🚀 ~ requestResetEmail ~ user:", user);
+
+  res.status(200).json({
+    message: "Password reset email sent successfully",
+  });
+}
