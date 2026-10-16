@@ -1,6 +1,9 @@
 import createHttpError from "http-errors";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import handlebars from "handlebars";
+import path from "node:path";
+import fs from "node:fs/promises";
 import { User } from "../models/user.js";
 import { createSession, setSessionCookies } from "../services/auth.js";
 import { Session } from "../models/session.js";
@@ -113,12 +116,20 @@ export async function requestResetEmail(req, res) {
     },
   );
 
+  const templatePath = path.resolve("src/templates/reset-password-email.html");
+  const templateSource = await fs.readFile(templatePath, "utf-8");
+  const template = handlebars.compile(templateSource);
+  const html = template({
+    name: user.username,
+    link: `${process.env.FRONTEND_DOMAIN}/reset-password?token=${resetToken}`,
+  });
+
   try {
     await sendEmail({
       from: process.env.SMTP_FROM,
       to: email,
       subject: "Reset your password",
-      html: `<p>Click <a href="${resetToken}">here</a> to reset your password!</p>`,
+      html,
     });
   } catch {
     throw createHttpError(
@@ -128,6 +139,6 @@ export async function requestResetEmail(req, res) {
   }
 
   res.status(200).json({
-    message: "Password reset email sent successfully",
+    message: "If this email exists, a reset link has been sent",
   });
 }
