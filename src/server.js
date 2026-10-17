@@ -13,6 +13,7 @@ import { logger } from "./middleware/logger.js";
 import studentsRouter from "./routes/studentsRouter.js";
 import contactsRouter from "./routes/contactsRoute.js";
 import authRouter from "./routes/authRouter.js";
+import userRouter from "./routes/userRouter.js";
 
 const PORT = Number(process.env.PORT) || 3000;
 
@@ -49,6 +50,7 @@ app.get("/", (req, res) => {
 app.use("/auth", authRouter);
 app.use("/contacts", contactsRouter);
 app.use("/students", studentsRouter);
+app.use(userRouter);
 
 app.get("/test-error", (req, res) => {
   throw new Error("(Example) Something went wrong");
