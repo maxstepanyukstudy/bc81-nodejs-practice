@@ -50,7 +50,7 @@ app.get("/", (req, res) => {
 app.use("/auth", authRouter);
 app.use("/contacts", contactsRouter);
 app.use("/students", studentsRouter);
-app.use(userRouter);
+app.use("/users", userRouter);
 
 app.get("/test-error", (req, res) => {
   throw new Error("(Example) Something went wrong");
